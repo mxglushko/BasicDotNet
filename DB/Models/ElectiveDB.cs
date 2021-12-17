@@ -23,14 +23,9 @@ namespace DB.Models
         public byte CountOfStudents { get; set; }
 
         /// <summary>
-        /// Gets or sets Height
+        /// Gets or sets ClassNumber
         /// </summary>
-        public decimal Height { get; set; }
-
-        /// <summary>
-        /// Gets or sets Weight
-        /// </summary>
-        public float Weight { get; set; }
+        public byte ClassNumber { get; set; }
 
         public ICollection<SchoolchildrenElectivesDB> SchoolchildrenElectives { get; set; }
     }

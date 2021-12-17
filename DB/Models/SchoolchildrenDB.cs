@@ -20,19 +20,14 @@ namespace DB.Models
         public int ClassNumber { get; set; }
 
         /// <summary>
-        /// Gets or sets Photo
-        /// </summary>
-        public byte[] Photo { get; set; }
-
-        /// <summary>
         /// Gets or sets Height
         /// </summary>
-        public decimal Height { get; set; }
+        public int Height { get; set; }
 
         /// <summary>
         /// Gets or sets Weight
         /// </summary>
-        public float Weight { get; set; }
+        public int Weight { get; set; }
 
         public ICollection<SchoolchildrenElectivesDB> SchoolchildrenElectives { get; set; }
     }
