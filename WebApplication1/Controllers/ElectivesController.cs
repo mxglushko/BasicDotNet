@@ -1,14 +1,14 @@
-﻿using Domain.Filter;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Repositories;
 using Repositories.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using WebApplication1.Request;
 
 namespace WebApplication1.Controllers
 {
     [Route("electives")]
-    public class ElectivesController : Controller
+    public class ElectivesController : BaseDotNetController
     {
         private IElectivesRepository _electivesRepository { get; }
 
@@ -20,19 +20,19 @@ namespace WebApplication1.Controllers
         /// <summary>
         /// Get electives info as page
         /// </summary>
-        [HttpGet("get/page")]
-        public async Task<IEnumerable<Elective>> GetElectivesAsync(GetFilter filter)
+        [HttpPost("post/page")]
+        public async Task<IEnumerable<Elective>> GetElectivesAsync([FromQuery] ElectiveRequest request)
         {
-            return await _electivesRepository.GetPageAsync(filter);
+            return await _electivesRepository.GetPageAsync(request.Filter);
         }
 
         /// <summary>
         /// Get evelites with schoollchildren
         /// </summary>
-        [HttpGet("get/withschoolchildren")]
-        public async Task<IEnumerable<SchoolchildrenElectives>> GetWithSchollchildrenAsync(int id, GetFilter filter)
+        [HttpPost("post/withschoolchildren")]
+        public async Task<IEnumerable<SchoolchildrenElectives>> GetWithSchollchildrenAsync([FromQuery] ElectiveRequest request)
         {
-            return await _electivesRepository.GetWithSchollchildrenAsync(id, filter);
+            return await _electivesRepository.GetWithSchollchildrenAsync(request.Filter);
         }
 
         /// <summary>

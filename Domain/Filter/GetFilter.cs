@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Domain.Filter
+﻿namespace Domain.Filter
 {
     public sealed class GetFilter : IGetFilter
     {
