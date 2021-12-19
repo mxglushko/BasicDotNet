@@ -1,6 +1,5 @@
 ﻿using DB;
 using DB.Models;
-using Domain.Filter;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Repositories.Extentions;
@@ -8,6 +7,7 @@ using Repositories.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebApplication1.Request;
 
 namespace Repositories
 {
@@ -18,7 +18,7 @@ namespace Repositories
         /// <summary>
         /// Get electives info as page
         /// </summary>
-        public async Task<IEnumerable<Elective>> GetPageAsync(GetFilter filter)
+        public async Task<IEnumerable<Elective>> GetPageAsync(ElectiveFilter filter)
         {
             return await DbContext.Electives.AsNoTracking()
                                             .Select(e => new Elective(e.Id, e.Name))
@@ -31,10 +31,11 @@ namespace Repositories
         /// </summary>
         // TODO [M.Go]: Add Groupby
         // TODO [M.Go]: Add electiveId tp Filter
-        public async Task<IEnumerable<SchoolchildrenElectives>> GetWithSchollchildrenAsync(int electiveId, IGetFilter filter)
+        // TODO [M.Go]: Add mapping from db model
+        public async Task<IEnumerable<SchoolchildrenElectives>> GetWithSchollchildrenAsync(ElectiveFilter filter)
         {
             return await DbContext.SchoolchildrenElectives.AsNoTracking()
-                                                          .Where(se => se.ElectiveId == electiveId)
+                                                          .Where(se => se.ElectiveId == filter.Id)
                                                           .Include(se => se.Elective)
                                                           .Include(se => se.Schoolchildren)
                                                           .Select(se => new SchoolchildrenElectives

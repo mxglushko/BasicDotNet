@@ -1,7 +1,7 @@
-﻿using Domain.Filter;
-using Repositories.Models;
+﻿using Repositories.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using WebApplication1.Request;
 
 namespace Repositories
 {
@@ -10,12 +10,12 @@ namespace Repositories
         /// <summary>
         /// Gets Schoolchildren page
         /// </summary>
-        Task<IEnumerable<Schoolchildren>> GetPageAsync(GetFilter filter);
+        Task<IEnumerable<Schoolchildren>> GetPageAsync(SchoolchildrenFilter filter);
 
         /// <summary>
         /// Get schoolchildren with electives
         /// </summary>
-        Task<IEnumerable<SchoolchildrenElectives>> GetWithElectivesAsync(int schoolchildrenId, IGetFilter filter);
+        Task<IEnumerable<SchoolchildrenElectives>> GetWithElectivesAsync(SchoolchildrenFilter filter);
 
         /// <summary>
         /// Creates schoolchildren

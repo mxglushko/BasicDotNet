@@ -1,18 +1,18 @@
-﻿using Domain.Filter;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Repositories;
 using Repositories.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using WebApplication1.Request;
 
 namespace WebApplication1.Controllers
 {
     [Route("schoolchildren")]
-    public class ApiController : Controller
+    public class SchoolchildrenController : BaseDotNetController
     {
         private ISchoolchildrenRepository _schoolchildrenRepository { get; }
 
-        public ApiController(ISchoolchildrenRepository schoolchildrenRepository)
+        public SchoolchildrenController(ISchoolchildrenRepository schoolchildrenRepository)
         {
             _schoolchildrenRepository = schoolchildrenRepository;
         }
@@ -20,19 +20,19 @@ namespace WebApplication1.Controllers
         /// <summary>
         /// Get schoolchildren info as page
         /// </summary>
-        [HttpGet("get/page")]
-        public async Task<IEnumerable<Schoolchildren>> GetSchoolchildrenPageAsync(GetFilter filter)
+        [HttpPost("post/page")]
+        public async Task<IEnumerable<Schoolchildren>> GetPageAsync([FromQuery] SchoolchildrenRequest request)
         {
-            return await _schoolchildrenRepository.GetPageAsync(filter);
+            return await _schoolchildrenRepository.GetPageAsync(request.Filter);
         }
 
         /// <summary>
         /// Get evelites with schoollchildren
         /// </summary>
-        [HttpGet("get/withelectives")]
-        public async Task<IEnumerable<SchoolchildrenElectives>> GetWithElectivesAsync(int id, GetFilter filter)
+        [HttpPost("post/withelectives")]
+        public async Task<IEnumerable<SchoolchildrenElectives>> GetWithElectivesAsync([FromQuery] SchoolchildrenRequest request)
         {
-            return await _schoolchildrenRepository.GetWithElectivesAsync(id, filter);
+            return await _schoolchildrenRepository.GetWithElectivesAsync(request.Filter);
         }
 
         /// <summary>
@@ -56,7 +56,7 @@ namespace WebApplication1.Controllers
         /// <summary>
         /// Delete schoolchildren
         /// </summary>
-        [HttpDelete("delete")]
+        [HttpDelete("delete/{id}")]
         public async Task<int> DeleteAsync(int id)
         {
             return await _schoolchildrenRepository.DeleteAsync(id);
